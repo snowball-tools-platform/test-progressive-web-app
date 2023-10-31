@@ -4,5 +4,9 @@ const withPWA = require('next-pwa')({
 })
 
 module.exports = withPWA({
-  // config
+  env: {
+    CERC_TEST_WEBAPP_CONFIG1: process.env.CERC_TEST_WEBAPP_CONFIG1,
+    CERC_TEST_WEBAPP_CONFIG2: process.env.CERC_TEST_WEBAPP_CONFIG2,
+    CERC_WEBAPP_DEBUG: process.env.CERC_WEBAPP_DEBUG,
+  },
 })
