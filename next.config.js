@@ -9,4 +9,7 @@ module.exports = withPWA({
     CERC_TEST_WEBAPP_CONFIG2: process.env.CERC_TEST_WEBAPP_CONFIG2,
     CERC_WEBAPP_DEBUG: process.env.CERC_WEBAPP_DEBUG,
   },
+  experimental: {
+    staticWorkerRequestDeduping: true,
+  }
 })
