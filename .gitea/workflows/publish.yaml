@@ -1,0 +1,27 @@
+name: Publish ApplicationRecord to Registry
+on:
+  release:
+    types: [published]
+jobs:
+  cns_publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Clone project repository"
+        uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: "Install Yarn"
+        run: npm install -g yarn
+      - name: "Install registry CLI"
+        run: |
+          npm config set @cerc-io:registry https://git.vdb.to/api/packages/cerc-io/npm/
+          yarn global add @cerc-io/laconic-registry-cli
+      - name: "Install jq"
+        run: apt -y update && apt -y install jq
+      - name: "Publish Record"
+        env:
+          CERC_LACONIC_USER_KEY: ${{ secrets.CICD_LACONIC_USER_KEY }}
+          CERC_LACONIC_BOND_ID: ${{ secrets.CICD_LACONIC_BOND_ID }}
+        run: scripts/publish-app-record.sh
