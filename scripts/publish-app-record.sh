@@ -28,10 +28,14 @@ EOF
 
 next_ver=$(laconic -c $CONFIG_FILE cns record list --type ApplicationRecord --all --name "$rcd_name" 2>/dev/null | jq -r -s ".[] | sort_by(.createTime) | reverse | [ .[] | select(.bondId == \"$CERC_LACONIC_BOND_ID\") ] | .[0].attributes.version" | awk -F. -v OFS=. '{$NF += 1 ; print}')
 
+if [ -z "$next_ver" ] || [ "1" == "$next_ver" ]; then
+  next_ver=0.0.1
+fi
+
 cat <<EOF | sed '/.*: ""$/d' > "$RECORD_FILE"
 record:
   type: ApplicationRecord
-  version: ${next_ver:-0.0.1}
+  version: ${next_ver}
   name: "$rcd_name"
   description: "$rcd_desc"
   homepage: "$rcd_homepage"
