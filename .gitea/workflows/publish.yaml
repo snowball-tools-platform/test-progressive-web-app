@@ -22,6 +22,7 @@ jobs:
         run: apt -y update && apt -y install jq
       - name: "Publish Record"
         env:
-          CERC_LACONIC_USER_KEY: ${{ secrets.CICD_LACONIC_USER_KEY }}
-          CERC_LACONIC_BOND_ID: ${{ secrets.CICD_LACONIC_BOND_ID }}
+          CERC_REGISTRY_USER_KEY: ${{ secrets.CICD_LACONIC_USER_KEY }}
+          CERC_REGISTRY_BOND_ID: ${{ secrets.CICD_LACONIC_BOND_ID }}
+          CERC_REGISTRY_APP_CRN: "crn://cerc-io/applications/test-progressive-web-app"
         run: scripts/publish-app-record.sh
