@@ -42,7 +42,8 @@ record:
   homepage: "$rcd_homepage"
   license: "$rcd_license"
   author: "$rcd_author"
-  repository: "$rcd_repository"
+  repository:
+    - "$rcd_repository"
   repository_ref: "$CERC_REPO_REF"
   app_version: "$rcd_app_version"
   app_type: "$CERC_APP_TYPE"
