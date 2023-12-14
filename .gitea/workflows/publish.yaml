@@ -28,7 +28,7 @@ jobs:
         run: scripts/publish-app-record.sh
       - name: "Request Deployment"
         env:
-          CERC_REGISTRY_USER_KEY: ${{ secrets.CICD_LACONIC_USER_KEY }}
-          CERC_REGISTRY_BOND_ID: ${{ secrets.CICD_LACONIC_BOND_ID }}
+          CERC_REGISTRY_USER_KEY: ${{ secrets.CICD_CERCIO_USER_KEY }}
+          CERC_REGISTRY_BOND_ID: ${{ secrets.CICD_CERCIO_BOND_ID }}
           CERC_REGISTRY_APP_CRN: "crn://cerc-io/applications/test-progressive-web-app"
         run: scripts/request-app-deployment.sh
