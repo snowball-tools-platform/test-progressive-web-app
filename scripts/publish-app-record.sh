@@ -54,13 +54,17 @@ cat $RECORD_FILE
 RECORD_ID=$(laconic -c $CONFIG_FILE cns record publish --filename $RECORD_FILE --user-key "${CERC_REGISTRY_USER_KEY}" --bond-id ${CERC_REGISTRY_BOND_ID} | jq -r '.id')
 echo $RECORD_ID
 
-if [ -n "$CERC_REGISTRY_APP_CRN" ]; then
-  laconic -c $CONFIG_FILE cns name set --user-key "${CERC_REGISTRY_USER_KEY}" --bond-id ${CERC_REGISTRY_BOND_ID} "$CERC_REGISTRY_APP_CRN@${rcd_app_version}" "$RECORD_ID"
-  laconic -c $CONFIG_FILE cns name set --user-key "${CERC_REGISTRY_USER_KEY}" --bond-id ${CERC_REGISTRY_BOND_ID} "$CERC_REGISTRY_APP_CRN@${CERC_REPO_REF}" "$RECORD_ID"
-  if [ "true" == "$CERC_IS_LATEST_RELEASE" ]; then
-    laconic -c $CONFIG_FILE cns name set --user-key "${CERC_REGISTRY_USER_KEY}" --bond-id ${CERC_REGISTRY_BOND_ID} "$CERC_REGISTRY_APP_CRN" "$RECORD_ID"
-    laconic -c $CONFIG_FILE cns name set --user-key "${CERC_REGISTRY_USER_KEY}" --bond-id ${CERC_REGISTRY_BOND_ID} "$CERC_REGISTRY_APP_CRN@latest" "$RECORD_ID"
-  fi
+if [ -z "$CERC_REGISTRY_APP_CRN" ]; then
+  authority=$(echo "$rcd_name" | cut -d'/' -f1 | sed 's/@//')
+  app=$(echo "$rcd_name" | cut -d'/' -f2-)
+  CERC_REGISTRY_APP_CRN="crn://$authority/applications/$app"
+fi
+
+laconic -c $CONFIG_FILE cns name set --user-key "${CERC_REGISTRY_USER_KEY}" --bond-id ${CERC_REGISTRY_BOND_ID} "$CERC_REGISTRY_APP_CRN@${rcd_app_version}" "$RECORD_ID"
+laconic -c $CONFIG_FILE cns name set --user-key "${CERC_REGISTRY_USER_KEY}" --bond-id ${CERC_REGISTRY_BOND_ID} "$CERC_REGISTRY_APP_CRN@${CERC_REPO_REF}" "$RECORD_ID"
+if [ "true" == "$CERC_IS_LATEST_RELEASE" ]; then
+  laconic -c $CONFIG_FILE cns name set --user-key "${CERC_REGISTRY_USER_KEY}" --bond-id ${CERC_REGISTRY_BOND_ID} "$CERC_REGISTRY_APP_CRN" "$RECORD_ID"
+  laconic -c $CONFIG_FILE cns name set --user-key "${CERC_REGISTRY_USER_KEY}" --bond-id ${CERC_REGISTRY_BOND_ID} "$CERC_REGISTRY_APP_CRN@latest" "$RECORD_ID"
 fi
 
 rm -f $RECORD_FILE $CONFIG_FILE

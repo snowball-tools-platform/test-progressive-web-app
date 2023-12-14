@@ -19,8 +19,9 @@ services:
 EOF
 
 if [ -z "$CERC_REGISTRY_APP_CRN" ]; then
-  echo "CERC_REGISTRY_APP_CRN is required." 1>&2
-  exit 1
+  authority=$(echo "$rcd_name" | cut -d'/' -f1 | sed 's/@//')
+  app=$(echo "$rcd_name" | cut -d'/' -f2-)
+  CERC_REGISTRY_APP_CRN="crn://$authority/applications/$app"
 fi
 
 APP_RECORD=$(laconic -c $CONFIG_FILE cns name resolve "$CERC_REGISTRY_APP_CRN" | jq '.[0]')
