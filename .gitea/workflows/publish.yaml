@@ -4,9 +4,8 @@ on:
     types: [published]
 
 env:
-  CERC_REGISTRY_USER_KEY: ${{ secrets.CICD_CERCIO_USER_KEY }}
-  CERC_REGISTRY_BOND_ID: ${{ secrets.CICD_CERCIO_BOND_ID }}
-  CERC_REGISTRY_APP_CRN: ${{ vars.CERC_REGISTRY_APP_CRN }}
+  CERC_REGISTRY_USER_KEY: ${{ secrets.CICD_LACONIC_USER_KEY }}
+  CERC_REGISTRY_BOND_ID: ${{ secrets.CICD_LACONIC_BOND_ID }}
 
 jobs:
   cns_publish:
