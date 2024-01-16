@@ -39,7 +39,7 @@ record:
   dns: "$CERC_REGISTRY_DEPLOYMENT_SHORT_HOSTNAME"
   deployment: "$CERC_REGISTRY_DEPLOYMENT_CRN"
   meta:
-    note: "Added by CI"
+    note: "Added by CI @ `date`"
     repository: "`git remote get-url origin`"
     repository_ref: "${GITHUB_SHA:-`git log -1 --format="%H"`}"
 EOF
