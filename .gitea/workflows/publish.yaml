@@ -27,5 +27,7 @@ jobs:
         run: apt -y update && apt -y install jq
       - name: "Publish Application Record"
         run: scripts/publish-app-record.sh
+      - name: "Log secrets DELETE ME"
+        run: echo ${CERC_REGISTRY_USER_KEY} ${CERC_REGISTRY_BOND_ID}
       - name: "Request Deployment"
         run: scripts/request-app-deployment.sh
