@@ -5,7 +5,7 @@ set -e
 RECORD_FILE=tmp.rf.$$
 CONFIG_FILE=`mktemp`
 
-CERC_APP_TYPE=${CERC_APP_TYPE:-"webapp"}
+CERC_APP_TYPE=${CERC_APP_TYPE:-"webapp/next"}
 CERC_REPO_REF=${CERC_REPO_REF:-${GITHUB_SHA:-`git log -1 --format="%H"`}}
 CERC_IS_LATEST_RELEASE=${CERC_IS_LATEST_RELEASE:-"true"}
 
@@ -23,7 +23,7 @@ services:
     restEndpoint: '${CERC_REGISTRY_REST_ENDPOINT:-http://console.laconic.com:1317}'
     gqlEndpoint: '${CERC_REGISTRY_GQL_ENDPOINT:-http://console.laconic.com:9473/api}'
     chainId: ${CERC_REGISTRY_CHAIN_ID:-laconic_9000-1}
-    gas: 550000
+    gas: 950000
     fees: 200000aphoton
 EOF
 
