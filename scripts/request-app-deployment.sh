@@ -45,8 +45,6 @@ record:
     note: "Added by CI @ `date`"
     repository: "`git remote get-url origin`"
     repository_ref: "${GITHUB_SHA:-`git log -1 --format="%H"`}"
-  tags:
-    - dev
 EOF
 
 cat $RECORD_FILE
